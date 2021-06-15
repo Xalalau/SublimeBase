@@ -6,7 +6,6 @@ Events:Subscribe("LL_SetNoclip", function(player, state)
 
     possession:SetFlyingMode(state)
     possession:SetValue("LL_flyingMode", state, true)
-    possession:Jump() -- Hack: make the character restart the animation if it's too close to the ground
 
     if not state and not possession:GetValue("LL_falling") then
         possession:SetValue("LL_falling", true)
