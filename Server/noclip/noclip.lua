@@ -5,7 +5,7 @@ local function SetLanding(possession)
     possession:SetValue("LL_Noclip_Land", true)
     possession:SetFallDamageTaken(0)
 
-    Character:Subscribe("FallingModeChanged", function(possession, _, new_state)
+    possession:Subscribe("FallingModeChanged", function(possession, _, new_state)
         if new_state == 0 then
             local my_particle = Particle(
                 possession:GetLocation() - Vector(0, 0, 100),
@@ -14,7 +14,7 @@ local function SetLanding(possession)
                 true,
                 true
             )
-    
+
             possession:SetValue("LL_Noclip_Land", false)
             possession:SetFallDamageTaken(10)
             possession:Unsubscribe("FallingModeChanged")
