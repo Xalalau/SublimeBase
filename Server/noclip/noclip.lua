@@ -1,12 +1,16 @@
 -- Set Noclip
-Events:Subscribe("LL_SetNoclip", function(player, state)
+Events:Subscribe("LL_SetNoclip", function(player)
     local possession = player:GetControlledCharacter()
 
     if not possession then return end
 
+    -- Change state
+    local state = not possession:GetValue("LL_flyingMode")
+
     possession:SetFlyingMode(state)
     possession:SetValue("LL_flyingMode", state, true)
 
+    -- Prepare 
     if not state and not possession:GetValue("LL_falling") then
         possession:SetValue("LL_falling", true)
         possession:SetFallDamageTaken(0)
@@ -22,6 +26,7 @@ Character:Subscribe("FallingModeChanged", function(possession, _, new_state)
             true,
             true
         )
+
         possession:SetValue("LL_falling", false)
         possession:SetFallDamageTaken(10)
     end
