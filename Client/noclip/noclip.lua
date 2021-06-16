@@ -2,16 +2,16 @@
 -- Set Nonlip
 
 Client:Subscribe("KeyPress", function(key_name)
-    local possession = NanosWorld:GetLocalPlayer():GetControlledCharacter()
+    local char = NanosWorld:GetLocalPlayer():GetControlledCharacter()
 
-    if not possession then return end
+    if not char then return end
 
     -- Enable/Disable noclip
     if key_name == "C" then
         Events:CallRemote("LL_SetNoclip", {})
     end
 
-    if not possession:GetValue("LL_flyingMode") then return end
+    if not char:GetValue("LL_flyingMode") then return end
 
     -- Increase acceleration
     if key_name == "LeftShift" then
@@ -25,10 +25,10 @@ Client:Subscribe("KeyPress", function(key_name)
 end)
 
 Client:Subscribe("KeyUp", function(key_name)
-    local possession = NanosWorld:GetLocalPlayer():GetControlledCharacter()
+    local char = NanosWorld:GetLocalPlayer():GetControlledCharacter()
 
-    if not possession then return end
-    if not possession:GetValue("LL_flyingMode") then return end
+    if not char then return end
+    if not char:GetValue("LL_flyingMode") then return end
 
     -- Restore acceleration
     if key_name == "LeftShift" or key_name == "LeftAlt" then
