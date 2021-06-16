@@ -15,12 +15,12 @@ Client:Subscribe("KeyPress", function(key_name)
 
     -- Increase acceleration
     if key_name == "LeftShift" then
-        Events:CallRemote("LL_SetNoclipAcceleration", { 4000 })
+        Events:CallRemote("LL_SetNoclipSpeed", { 1.7 })
     end
 
     -- Decrease acceleration
     if key_name == "LeftAlt" then
-        Events:CallRemote("LL_SetNoclipAcceleration", { 300 })
+        Events:CallRemote("LL_SetNoclipSpeed", { 0.4 })
     end
 end)
 
@@ -32,6 +32,6 @@ Client:Subscribe("KeyUp", function(key_name)
 
     -- Restore acceleration
     if key_name == "LeftShift" or key_name == "LeftAlt" then
-        Events:CallRemote("LL_SetNoclipAcceleration", { 1024 })
+        Events:CallRemote("LL_SetNoclipSpeed", { 0.9 })
     end
 end)
