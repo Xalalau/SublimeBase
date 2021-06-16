@@ -22,6 +22,13 @@ local function SetLanding(possession)
     end)
 end
 
+-- Set acceleration
+Events:Subscribe("LL_SetNoclipAcceleration", function(player, acceleration)
+    local possession = player:GetControlledCharacter()
+
+    possession:SetAccelerationSettings(768, 512, 768, 128, 256, 256, acceleration)
+end)
+
 -- Set Noclip
 Events:Subscribe("LL_SetNoclip", function(player)
     local possession = player:GetControlledCharacter()
