@@ -24,6 +24,7 @@ Client:Subscribe("MouseDown", function()
     UnkillCheck(NanosWorld:GetLocalPlayer():GetControlledCharacter())
 end)
 
+-- Add console command
 Timer:SetTimeout(100, function()
     ConCommand:Add("kill", function() Events:CallRemote("LL_Kill", {}) end)
     return false
