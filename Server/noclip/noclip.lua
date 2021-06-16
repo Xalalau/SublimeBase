@@ -36,10 +36,10 @@ Events:Subscribe("LL_SetNoclip", function(player)
     if not char then return end
 
     -- Change state
-    local state = not char:GetValue("LL_flyingMode")
+    local state = not char:GetValue("LL_Noclip")
 
     char:SetFlyingMode(state)
-    char:SetValue("LL_flyingMode", state, true)
+    char:SetValue("LL_Noclip", state, true)
 
     -- Set landing
     SetLanding(char)

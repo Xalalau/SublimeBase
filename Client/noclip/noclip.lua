@@ -11,7 +11,7 @@ Client:Subscribe("KeyPress", function(key_name)
         Events:CallRemote("LL_SetNoclip", {})
     end
 
-    if not char:GetValue("LL_flyingMode") then return end
+    if not char:GetValue("LL_Noclip") then return end
 
     -- Increase acceleration
     if key_name == "LeftShift" then
@@ -28,7 +28,7 @@ Client:Subscribe("KeyUp", function(key_name)
     local char = NanosWorld:GetLocalPlayer():GetControlledCharacter()
 
     if not char then return end
-    if not char:GetValue("LL_flyingMode") then return end
+    if not char:GetValue("LL_Noclip") then return end
 
     -- Restore acceleration
     if key_name == "LeftShift" or key_name == "LeftAlt" then
