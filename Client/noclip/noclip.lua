@@ -35,3 +35,9 @@ Client:Subscribe("KeyUp", function(key_name)
         Events:CallRemote("LL_SetNoclipSpeed", { 0.9 })
     end
 end)
+
+-- Add console command
+Timer:SetTimeout(100, function()
+    ConCommand:Add("noclip", function() Events:CallRemote("LL_SetNoclip", {}) end)
+    return false
+end)
