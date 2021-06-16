@@ -4,13 +4,13 @@ Events:Subscribe("LL_SetNoclip", function(player)
 
     if not char then return end
 
-    -- Change state
+    -- Start noclip
     local state = not char:GetValue("LL_Noclip")
 
     char:SetFlyingMode(state)
     char:SetValue("LL_Noclip", state, true)
 
-    -- Initialize flying
+    -- Change flying behaviour
     if not char:GetValue("LL_Noclip_Init") then
         char:SetValue("LL_Noclip_Init", true)
 
