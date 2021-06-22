@@ -41,8 +41,8 @@ local function Kill(player)
     -- Kill the current char
     curChar:SetHealth(0)
 
-    -- Check if the player is still dead after 9 seconds, respawn him and delete the killed char
-    Timer:SetTimeout(9000, function(player, lastChar)
+    -- Check if the player is still dead after 6 seconds, respawn him and delete the killed char
+    Timer:SetTimeout(6000, function(player, lastChar)
         if not chars[player] and lastChar or -- Note: this covers the first spawn
            chars[player] == lastChar then 
             Unkill(player)
