@@ -79,7 +79,11 @@ end)
 
 -- Register the first char
 Character:Subscribe("Spawn", function(curChar)
-    if not curChar:GetPlayer() then return end
+    Timer:Simple(0.5, function()
+        local player = curChar:GetPlayer()
 
-    chars[player] = curCharW
+        if not player then return end
+
+        chars[player] = curCharW
+    end)
 end)
