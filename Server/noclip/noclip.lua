@@ -22,8 +22,8 @@ Events:Subscribe("LL_SetNoclip", function(player)
         char:SetFallDamageTaken(0)
     
         -- When the player first hits the ground after exiting noclip...
-        char:Subscribe("FallingModeChanged", function(char, _, new_state)
-            if new_state == 0 then
+        char:Subscribe("StanceModeChanged", function(char, _, new_state)
+            if new_state == 1 then
                 -- Emit some particles
                 local my_particle = Particle(
                     char:GetLocation() - Vector(0, 0, 100),
@@ -44,7 +44,7 @@ Events:Subscribe("LL_SetNoclip", function(player)
                 char:SetValue("LL_Noclip_Init", false)
 
                 -- Remove FallingModeChanged event
-                char:Unsubscribe("FallingModeChanged")
+                char:Unsubscribe("StanceModeChanged")
             end
         end)
     end
