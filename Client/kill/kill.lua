@@ -27,6 +27,4 @@ Events:Subscribe("LL_SetSandboxChar", function()
 end)
 
 -- Add console command
-Timer:Simple(0.1, function()
-    ConCommand:Add("kill", function() Kill() end)
-end)
+ConCommand:Add("kill", function() Kill() end)

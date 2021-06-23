@@ -36,6 +36,4 @@ Client:Subscribe("KeyUp", function(key_name)
 end)
 
 -- Add console command
-Timer:Simple(0.1, function()
-    ConCommand:Add("noclip", function() Events:CallRemote("LL_SetNoclip", {}) end)
-end)
+ConCommand:Add("noclip", function() Events:CallRemote("LL_SetNoclip", {}) end)
