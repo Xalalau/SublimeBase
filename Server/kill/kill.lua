@@ -36,13 +36,9 @@ local function Kill(player)
         local curChar = player:GetControlledCharacter()
 
         if curChar == killedChar then
-            killedChar:Respawn()
+            killedChar:Respawn()   
         else
-            if curChar:GetHealth() <= 0 then
-                Unkill(player)
-            end
-
-            killedChar:Destroy()            
+            killedChar:Destroy()
         end
     end)
 end
