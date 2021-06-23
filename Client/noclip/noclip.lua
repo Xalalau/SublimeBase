@@ -6,11 +6,6 @@ Client:Subscribe("KeyPress", function(key_name)
 
     if not char then return end
 
-    -- Enable/Disable noclip
-    if key_name == "C" then
-        Events:CallRemote("LL_SetNoclip", {})
-    end
-
     if not char:GetValue("LL_Noclip") then return end
 
     -- Increase acceleration
