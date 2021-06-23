@@ -29,7 +29,7 @@ local function Kill(player)
     SetCooldown(killedChar)
 
     -- Kill the current char
-    killedChar:SetHealth(0)
+    killedChar:ApplyDamage(killedChar:GetHealth(), "", DamageType.Unknown, Vector(0, 0 ,0), player)
 
     -- Check if the player is still dead after 4.7 seconds (Sandbox uses 5s), respawn him and delete the killed char
     Timer:Simple(4.8, function()
