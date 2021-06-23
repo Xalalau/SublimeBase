@@ -8,6 +8,7 @@ Events:Subscribe("LL_SetNoclip", function(player)
     local state = not char:GetValue("LL_Noclip")
 
     char:SetFlyingMode(state)
+    char:SetCollision(CollisionType[state and "NoCollision" or "Normal"])
     char:SetValue("LL_Noclip", state, true)
 
     -- Change flying behaviour
