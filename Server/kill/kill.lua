@@ -12,7 +12,7 @@ end
 -- Unkill player
 local function Unkill(player)  
     if not player:GetValue("LL_cooldown") then
-        Package:Call("Sandbox", "SpawnPlayer", { player, nil, nil, true })
+        Package:Call("Sandbox", "SpawnPlayer", { player })
         Events:CallRemote("LL_SetSandboxChar", player, {})
     end
 end
