@@ -1,89 +1,57 @@
--- Don't let the player kill himself too fast
--- { [Player] = bool }
-local cooldown = {}
+-- Block kills/Unkills for 1.3 second
+local function SetCooldown(curChar)
+    local player = curChar:GetPlayer()
 
--- I'm using this table to quickly check new playermodels and thus avoid duplicates
--- { [Player] = Character }
-local chars = {} 
+    player:SetValue("LL_cooldown", true)
 
--- Block kills/Unkills for 1 second
-local function SetCooldown(player)
-    cooldown[player] = true
-
-    Timer:SetTimeout(1000, function(player)
-        cooldown[player] = false
-
-        return false
-    end, { player })
+    Timer:Simple(1.3, function()
+        player:SetValue("LL_cooldown", false)
+    end)
 end
 
 -- Unkill player
-local function Unkill(player)    
-    if not cooldown[player] and player:GetControlledCharacter():GetHealth() <= 0 then
-        local newChar = Character(Vector(-100.000, 3030.000, 409.000))
-
-        chars[player] = newChar
-        player:Possess(newChar)
+local function Unkill(player)  
+    if not player:GetValue("LL_cooldown") then
+        Package:Call("Sandbox", "SpawnPlayer", { player, nil, nil, true })
+        Events:CallRemote("LL_SetSandboxChar", player, {})
     end
 end
 
 -- Kill player
 local function Kill(player)
     -- Get the current char 
-    local curChar = player:GetControlledCharacter()
+    local killedChar = player:GetControlledCharacter()
 
     -- Check if the current char is dead or if we are cooling down
-    if curChar:GetHealth() <= 0 or cooldown[player] then return end
+    if killedChar:GetHealth() <= 0 or player:GetValue("LL_cooldown") then return end
 
     -- Reset kill cooldown and our current char table entry
-    SetCooldown(player)
+    SetCooldown(killedChar)
 
     -- Kill the current char
-    curChar:SetHealth(0)
+    killedChar:SetHealth(0)
 
-    -- Check if the player is still dead after 6 seconds, respawn him and delete the killed char
-    Timer:SetTimeout(6000, function(player, lastChar)
-        if not chars[player] and lastChar or -- Note: this covers the first spawn
-           chars[player] == lastChar then 
-            Unkill(player)
+    -- Check if the player is still dead after 4.7 seconds (Sandbox uses 5s), respawn him and delete the killed char
+    Timer:Simple(4.8, function()
+        local curChar = player:GetControlledCharacter()
+
+        if curChar == killedChar then
+            killedChar:Respawn()
+        else
+            if curChar:GetHealth() <= 0 then
+                Unkill(player)
+            end
+
+            killedChar:Destroy()            
         end
-
-        -- o tamanho limitado dos erros tb tá me atrapalhando
-        if lastChar:IsValid() then
-            lastChar:Destroy() 
-        end
-
-        return false
-    end, { player, curChar })
-
-    Server:BroadcastChatMessage("<red>" .. player:GetName() .. "</> committed suicide")
+    end)
 end
 
--- Hook some custom events to kill/Unkill
-Events:Subscribe("LL_Unkill", function(player)
-    Unkill(player)
-end)
+-- Hook kill
+Events:Subscribe("LL_Unkill", Unkill)
 
-Events:Subscribe("LL_Kill", function(player)
-    Kill(player)
-end)
+-- Hook Unkill
+Events:Subscribe("LL_Kill", Kill)
 
 -- Deal with normal deaths
-Character:Subscribe("Death", function(curChar)
-    local player = curChar:GetPlayer()
-
-    if not player then return end
-
-    SetCooldown(player)
-end)
-
--- Register the first char
-Character:Subscribe("Spawn", function(curChar)
-    Timer:Simple(0.5, function()
-        local player = curChar:GetPlayer()
-
-        if not player then return end
-
-        chars[player] = curCharW
-    end)
-end)
+Character:Subscribe("Death", SetCooldown)

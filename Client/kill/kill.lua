@@ -1,31 +1,32 @@
--- Kill the player using the binded key or unkill him using almost any key/mouse input
+-- Start kill
+local function Kill()
+    local curChar = NanosWorld:GetLocalPlayer():GetControlledCharacter()
 
-local function UnkillCheck(curChar)
+    if curChar and curChar:GetHealth() >= 0 then
+        Events:CallRemote("LL_Kill", {})
+    end
+end
+
+-- Start unkill
+local function Unkill()
+    local curChar = NanosWorld:GetLocalPlayer():GetControlledCharacter()
+
     if curChar and curChar:GetHealth() <= 0 then
         Events:CallRemote("LL_Unkill", {})
     end
 end
 
-Client:Subscribe("KeyPress", function(key_name)
+-- Setup unkill events
+Client:Subscribe("KeyPress", Unkill)
+Client:Subscribe("MouseDown", Unkill)
+
+-- Reconnect unkilled player to Sandbox
+Events:Subscribe("LL_SetSandboxChar", function()
     local curChar = NanosWorld:GetLocalPlayer():GetControlledCharacter()
-
-    if not curChar then return end
-
-    if key_name ~= "P" then
-        UnkillCheck(curChar)
-    end
-
-    if key_name == "P" and curChar:GetHealth() >= 0 then
-        Events:CallRemote("LL_Kill", {})
-    end
-end)
-
-Client:Subscribe("MouseDown", function()
-    UnkillCheck(NanosWorld:GetLocalPlayer():GetControlledCharacter())
+    Package:Call("Sandbox", "UpdateLocalCharacter", { curChar })
 end)
 
 -- Add console command
-Timer:SetTimeout(100, function()
-    ConCommand:Add("kill", function() Events:CallRemote("LL_Kill", {}) end)
-    return false
+Timer:Simple(0.1, function()
+    ConCommand:Add("kill", function() Kill() end)
 end)
