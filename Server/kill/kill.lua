@@ -4,7 +4,7 @@ local function SetCooldown(curChar)
 
     player:SetValue("LL_cooldown", true)
 
-    Timer:Simple(1.3, function()
+    _Timer:Simple(1.3, function()
         player:SetValue("LL_cooldown", false)
     end)
 end
@@ -32,7 +32,7 @@ local function Kill(player)
     killedChar:ApplyDamage(killedChar:GetHealth(), "", DamageType.Unknown, Vector(0, 0 ,0), player)
 
     -- Check if the player is still dead after 4.7 seconds (Sandbox uses 5s), respawn him and delete the killed char
-    Timer:Simple(4.8, function()
+    _Timer:Simple(4.8, function()
         local curChar = player:GetControlledCharacter()
 
         if curChar == killedChar then
