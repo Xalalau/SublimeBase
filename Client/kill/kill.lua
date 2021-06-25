@@ -16,9 +16,21 @@ local function Unkill()
     end
 end
 
--- Setup unkill events
-Client:Subscribe("KeyPress", Unkill)
+-- Setup kill and unkill events
 Client:Subscribe("MouseDown", Unkill)
+
+Client:Subscribe("KeyPress", function(key_name)
+    local player = NanosWorld:GetLocalPlayer()
+    local char = player:GetControlledCharacter()
+
+    if not char or player:GetValue("LL_KillCoolDown") then return end
+
+    if key_name == "P" then
+        Kill()
+    else
+        Unkill()
+    end
+end)
 
 -- Reconnect unkilled player to Sandbox
 Events:Subscribe("LL_SetSandboxChar", function()

@@ -2,16 +2,18 @@
 local function SetCooldown(curChar)
     local player = curChar:GetPlayer()
 
-    player:SetValue("LL_cooldown", true)
+    if not player then return end
+
+    player:SetValue("LL_KillCoolDown", true)
 
     _Timer:Simple(1.3, function()
-        player:SetValue("LL_cooldown", false)
+        player:SetValue("LL_KillCoolDown", false)
     end)
 end
 
 -- Unkill player
 local function Unkill(player)  
-    if not player:GetValue("LL_cooldown") then
+    if not player:GetValue("LL_KillCoolDown") then
         Package:Call("Sandbox", "SpawnPlayer", { player })
         Events:CallRemote("LL_SetSandboxChar", player, {})
     end
@@ -23,7 +25,7 @@ local function Kill(player)
     local killedChar = player:GetControlledCharacter()
 
     -- Check if the current char is dead or if we are cooling down
-    if killedChar:GetHealth() <= 0 or player:GetValue("LL_cooldown") then return end
+    if killedChar:GetHealth() <= 0 or player:GetValue("LL_KillCoolDown") then return end
 
     -- Reset kill cooldown and our current char table entry
     SetCooldown(killedChar)
