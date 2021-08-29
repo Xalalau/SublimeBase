@@ -25,7 +25,7 @@ Client.Subscribe("KeyPress", function(key_name)
 
     if not char or player:GetValue("LL_KillCoolDown") then return end
 
-    if key_name == "P" then
+    if key_name == "K" then
         Kill()
     else
         Unkill()
