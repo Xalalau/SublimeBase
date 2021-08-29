@@ -1,26 +1,26 @@
 -- Start kill
 local function Kill()
-    local curChar = NanosWorld:GetLocalPlayer():GetControlledCharacter()
+    local curChar = Client.GetLocalPlayer():GetControlledCharacter()
 
     if curChar and curChar:GetHealth() >= 0 then
-        Events:CallRemote("LL_Kill", {})
+        Events.CallRemote("LL_Kill")
     end
 end
 
 -- Start unkill
 local function Unkill()
-    local curChar = NanosWorld:GetLocalPlayer():GetControlledCharacter()
+    local curChar = Client.GetLocalPlayer():GetControlledCharacter()
 
     if curChar and curChar:GetHealth() <= 0 then
-        Events:CallRemote("LL_Unkill", {})
+        Events.CallRemote("LL_Unkill")
     end
 end
 
 -- Setup kill and unkill events
-Client:Subscribe("MouseDown", Unkill)
+Client.Subscribe("MouseDown", Unkill)
 
-Client:Subscribe("KeyPress", function(key_name)
-    local player = NanosWorld:GetLocalPlayer()
+Client.Subscribe("KeyPress", function(key_name)
+    local player = Client.GetLocalPlayer()
     local char = player:GetControlledCharacter()
 
     if not char or player:GetValue("LL_KillCoolDown") then return end
@@ -33,10 +33,10 @@ Client:Subscribe("KeyPress", function(key_name)
 end)
 
 -- Reconnect unkilled player to Sandbox
-Events:Subscribe("LL_SetSandboxChar", function()
-    local curChar = NanosWorld:GetLocalPlayer():GetControlledCharacter()
-    Package:Call("Sandbox", "UpdateLocalCharacter", { curChar })
+Events.Subscribe("LL_SetSandboxChar", function()
+    local curChar = Client.GetLocalPlayer():GetControlledCharacter()
+    Package.Call("Sandbox", "UpdateLocalCharacter",  curChar)
 end)
 
 -- Add console command
-ConCommand:Add("kill", function() Kill() end)
+ConCommand.Add("kill", Kill)

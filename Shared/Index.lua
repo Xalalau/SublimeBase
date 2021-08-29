@@ -1,2 +1,2 @@
 -- Load liblau
-Package:RequirePackage("liblau")
+Package.RequirePackage("liblau")

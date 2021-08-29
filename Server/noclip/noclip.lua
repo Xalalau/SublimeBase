@@ -1,5 +1,5 @@
 -- Set Noclip
-Events:Subscribe("LL_SetNoclip", function(player)
+Events.Subscribe("LL_SetNoclip", function(player)
     local char = player:GetControlledCharacter()
 
     if not char then return end
@@ -29,10 +29,10 @@ Events:Subscribe("LL_SetNoclip", function(player)
                 local my_particle = Particle(
                     char:GetLocation() - Vector(0, 0, 100),
                     Rotator(0, 0, 0),
-                    "NanosWorld::P_Explosion",
+                    "nanos-world::P_Explosion",
                     true,
                     true
-                )
+               )
     
                 -- Restore default fall damage since the player is already safe
                 char:SetFallDamageTaken(10)
@@ -52,7 +52,7 @@ Events:Subscribe("LL_SetNoclip", function(player)
 end)
 
 -- Change noclip speed
-Events:Subscribe("LL_SetNoclipSpeed", function(player, speed)
+Events.Subscribe("LL_SetNoclipSpeed", function(player, speed)
     local char = player:GetControlledCharacter()
 
     if not char then return end

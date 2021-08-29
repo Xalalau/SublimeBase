@@ -1,3 +1,3 @@
 -- Load addons
-LL:RequireFolder("kill")
-LL:RequireFolder("noclip")
+LL.RequireFolder("kill")
+LL.RequireFolder("noclip")
