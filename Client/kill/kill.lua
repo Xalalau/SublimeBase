@@ -35,7 +35,7 @@ end)
 -- Reconnect unkilled player to Sandbox
 Events.Subscribe("LL_SetSandboxChar", function()
     local curChar = Client.GetLocalPlayer():GetControlledCharacter()
-    Package.Call("Sandbox", "UpdateLocalCharacter",  curChar)
+    Package.Call("sandbox", "UpdateLocalCharacter",  curChar)
 end)
 
 -- Add console command

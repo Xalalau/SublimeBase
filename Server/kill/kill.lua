@@ -12,9 +12,9 @@ local function SetCooldown(curChar)
 end
 
 -- Unkill player
-local function Unkill(player)  
+local function Unkill(player)
     if not player:GetValue("LL_KillCoolDown") then
-        Package.Call("Sandbox", "SpawnPlayer",  player)
+        Package.Call("sandbox", "SpawnPlayer",  player)
         Events.CallRemote("LL_SetSandboxChar", player)
     end
 end
