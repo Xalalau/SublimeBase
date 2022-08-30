@@ -7,7 +7,7 @@ Client.Subscribe("KeyPress", function(key_name)
     if not char then return end
 
     -- Set noclip
-    if key_name == "C" then
+    if key_name == "N" then
         Events.CallRemote("LL_SetNoclip")
     end
 

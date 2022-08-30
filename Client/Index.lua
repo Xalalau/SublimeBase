@@ -1,3 +1,2 @@
--- Load addons
-LL.RequireFolder("kill")
-LL.RequireFolder("noclip")
+-- Load scope
+LL.RequireScope(Package.GetFiles())
